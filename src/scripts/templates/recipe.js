@@ -1,6 +1,6 @@
 const recipeTemplate = () => {
-    const getRecipeCard = () => {
-        console.log("Generate Card recipe");
+    const getRecipeCard = (recipeData) => {
+        const cardWrapper = document.createElement("div");
     };
 
     return { getRecipeCard };

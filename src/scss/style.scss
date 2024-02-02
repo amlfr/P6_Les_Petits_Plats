@@ -6,8 +6,12 @@ $light-grey: #c6c6c6;
 * {
     margin: 0;
     box-sizing: border-box;
-    color: black;
+}
+
+main {
+    background-color: #ededed;
     font-family: "Anton", sans-serif;
+    color: black;
 }
 
 .home-link {
@@ -30,7 +34,7 @@ $light-grey: #c6c6c6;
     height: 65vh;
 
     .background-picture {
-        position: fixed;
+        position: absolute;
         z-index: 0;
         width: 100%;
         height: 65vh;
@@ -68,10 +72,239 @@ $light-grey: #c6c6c6;
             &::content {
                 color: red;
             }
+
+            &:focus-visible {
+                outline: none;
+            }
         }
 
         .search-button {
             background-color: $black;
+            border: none;
+            height: 50px;
+            width: 50px;
+            border-radius: 10px;
+            /* TODO REWORK THIS, FLEX FOR Y AND RELATIVE FOR X MAYBE*/
+            position: relative;
+            left: 31vw;
+            bottom: 5.8vh;
+            cursor: pointer;
+            color: white !important;
+
+            & .search-icon {
+                color: white !important;
+            }
+
+            &:hover {
+                background-color: $yellow;
+
+                & img {
+                    color: black;
+                }
+            }
+        }
+    }
+}
+
+.label-search-section {
+    display: flex;
+    padding: 2vh 7vw;
+    justify-content: space-between;
+
+    .label-search-container {
+        .dropdown-container {
+            display: flex;
+            width: 40vw;
+            justify-content: space-between;
+            .dropdown-wrapper {
+                cursor: pointer;
+                .dropdown-header {
+                    background-color: white;
+                    height: 5vh;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 0 25px 0 16px;
+                    gap: 4vw;
+                    font-family: "Manrope", sans-serif;
+                    border-radius: 10px;
+
+                    .arrow-icon {
+                        height: 1vh;
+                    }
+                }
+
+                .dropdown-content {
+                    display: none;
+
+                    font-family: "Manrope", sans-serif;
+                    background-color: white;
+                    border-radius: 0px 0px 10px 10px;
+                    text-align: center;
+
+                    .dropdown-input {
+                        height: 3.5vh;
+                        width: 90%;
+                        margin-left: auto;
+                        display: inline-block;
+
+                        &:focus-visible {
+                            outline: none;
+                        }
+                    }
+
+                    .dropdown-list {
+                        list-style: none;
+                        padding: 0px;
+                        text-align: left;
+                        font-size: 14px;
+
+                        .dropdown-list-item {
+                            padding: 10px 0px 10px 16px;
+                            &:hover {
+                                background-color: $yellow;
+                            }
+                        }
+
+                        .dropdown-list-item:first-child {
+                            margin-top: 15px;
+                        }
+                    }
+                }
+
+                &:hover {
+                    .dropdown-header {
+                        border-radius: 10px 10px 0px 0px;
+                    }
+
+                    & .dropdown-content {
+                        display: block;
+                    }
+                }
+            }
+        }
+
+        .label-tag-container {
+            margin: 2vh 0px;
+            display: flex;
+            gap: 3vw;
+
+            .label-tag-card {
+                background-color: $yellow;
+                height: 5vh;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0 25px 0 16px;
+                gap: 4vw;
+                font-family: "Manrope", sans-serif;
+                border-radius: 10px;
+            }
+        }
+    }
+
+    .recipe-counter {
+        .recipe-counter-text {
+            font-size: 21px;
+        }
+    }
+}
+
+.card-section {
+    padding: 2vh 7vw;
+
+    .card-container {
+        display: grid;
+        grid-template-columns: repeat(3, 22vw);
+        width: 100%;
+        column-gap: 9vw;
+        row-gap: 5vh;
+
+        .recipe-card {
+            width: 25vw;
+            aspect-ratio: 380/731;
+            background-color: white;
+            border-radius: 21px;
+
+            .cover-wrapper {
+                height: 40%;
+                .recipe-picture {
+                    object-fit: cover;
+                    height: 100%;
+                    width: 100%;
+                    border-radius: 21px 21px 0px 0px;
+                }
+
+                .time-wrapper {
+                    position: relative;
+                    left: 77%;
+                    bottom: 92%;
+                    background-color: $yellow;
+                    font-family: "Manrope", sans-serif;
+                    font-size: 12px;
+                    padding: 10px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 14px;
+                    height: 3vh;
+                    width: 4vw;
+                    text-align: center;
+                    border: solid 1px rgba(0, 0, 0, 0.4);
+                }
+            }
+
+            .recipe-details-container {
+                padding: 3vh 1.5vw;
+
+                .recipe-heading {
+                    font-size: 18px;
+                    font-weight: 400;
+                }
+
+                .recipe-description-wrapper {
+                    font-family: "Manrope", sans-serif;
+                    margin-bottom: 6vh;
+
+                    .recipe-description-heading {
+                        color: $grey;
+                        font-size: 12px;
+                        margin: 3.5vh 0 1.75vh;
+                    }
+
+                    .recipe-description {
+                        color: $black;
+                        font-size: 14px;
+                    }
+                }
+
+                .recipe-ingredients-wrapper {
+                    font-family: "Manrope", sans-serif;
+                    .recipe-ingredients-heading {
+                        color: $grey;
+                        font-size: 12px;
+                        margin: 3.5vh 0 1.75vh;
+                    }
+
+                    .recipe-ingredients-container {
+                        display: grid;
+                        grid-template-columns: repeat(2, 40%);
+                        column-gap: 20%;
+                        row-gap: 20%;
+
+                        .recipe-ingredient-item {
+                            .ingredient-name {
+                                color: $black;
+                                margin-bottom: 5px;
+                            }
+
+                            .ingredient-quantity {
+                                color: $grey;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
