@@ -66,26 +66,34 @@ main {
 .search-section .search-container .search-input:focus-visible {
   outline: none;
 }
-.search-section .search-container .search-button {
+.search-section .search-container .button-container {
+  display: flex;
+  gap: 50px;
+  position: relative;
+  bottom: 6vh;
+  left: 28vw;
+}
+.search-section .search-container .button-container .delete-input {
+  width: 50px;
+  cursor: pointer;
+  display: none;
+}
+.search-section .search-container .button-container .search-button {
   background-color: #1b1b1b;
   border: none;
   height: 50px;
   width: 50px;
   border-radius: 10px;
-  /* TODO REWORK THIS, FLEX FOR Y AND RELATIVE FOR X MAYBE*/
-  position: relative;
-  left: 31vw;
-  bottom: 5.8vh;
   cursor: pointer;
   color: white !important;
 }
-.search-section .search-container .search-button .search-icon {
+.search-section .search-container .button-container .search-button .search-icon {
   color: white !important;
 }
-.search-section .search-container .search-button:hover {
+.search-section .search-container .button-container .search-button:hover {
   background-color: #ffd15b;
 }
-.search-section .search-container .search-button:hover img {
+.search-section .search-container .button-container .search-button:hover img {
   color: black;
 }
 
@@ -144,6 +152,9 @@ main {
 .label-search-section .label-search-container .dropdown-container .dropdown-wrapper .dropdown-content .dropdown-list .dropdown-list-item:hover {
   background-color: #ffd15b;
 }
+.label-search-section .label-search-container .dropdown-container .dropdown-wrapper .dropdown-content .dropdown-list .dropdown-list-item:active {
+  font-weight: bold;
+}
 .label-search-section .label-search-container .dropdown-container .dropdown-wrapper .dropdown-content .dropdown-list .dropdown-list-item:first-child {
   margin-top: 15px;
 }
@@ -169,12 +180,15 @@ main {
   font-family: "Manrope", sans-serif;
   border-radius: 10px;
 }
+.label-search-section .label-search-container .label-tag-container .label-tag-card .delete-icon {
+  cursor: pointer;
+}
 .label-search-section .recipe-counter .recipe-counter-text {
   font-size: 21px;
 }
 
 .card-section {
-  padding: 2vh 7vw;
+  padding: 2vh 7vw 5vh;
 }
 .card-section .card-container {
   display: grid;
@@ -234,6 +248,10 @@ main {
 .card-section .card-container .recipe-card .recipe-details-container .recipe-description-wrapper .recipe-description {
   color: #1b1b1b;
   font-size: 14px;
+  height: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: pre-wrap;
 }
 .card-section .card-container .recipe-card .recipe-details-container .recipe-ingredients-wrapper {
   font-family: "Manrope", sans-serif;

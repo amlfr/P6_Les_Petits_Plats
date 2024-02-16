@@ -78,28 +78,38 @@ main {
             }
         }
 
-        .search-button {
-            background-color: $black;
-            border: none;
-            height: 50px;
-            width: 50px;
-            border-radius: 10px;
-            /* TODO REWORK THIS, FLEX FOR Y AND RELATIVE FOR X MAYBE*/
+        .button-container {
+            display: flex;
+            gap: 50px;
             position: relative;
-            left: 31vw;
-            bottom: 5.8vh;
-            cursor: pointer;
-            color: white !important;
+            bottom: 6vh;
+            left: 28vw;
 
-            & .search-icon {
-                color: white !important;
+            .delete-input {
+                width: 50px;
+                cursor: pointer;
+                display: none;
             }
 
-            &:hover {
-                background-color: $yellow;
+            .search-button {
+                background-color: $black;
+                border: none;
+                height: 50px;
+                width: 50px;
+                border-radius: 10px;
+                cursor: pointer;
+                color: white !important;
 
-                & img {
-                    color: black;
+                & .search-icon {
+                    color: white !important;
+                }
+
+                &:hover {
+                    background-color: $yellow;
+
+                    & img {
+                        color: black;
+                    }
                 }
             }
         }
@@ -164,6 +174,10 @@ main {
                             &:hover {
                                 background-color: $yellow;
                             }
+
+                            &:active {
+                                font-weight: bold;
+                            }
                         }
 
                         .dropdown-list-item:first-child {
@@ -199,6 +213,10 @@ main {
                 gap: 4vw;
                 font-family: "Manrope", sans-serif;
                 border-radius: 10px;
+
+                .delete-icon {
+                    cursor: pointer;
+                }
             }
         }
     }
@@ -211,7 +229,7 @@ main {
 }
 
 .card-section {
-    padding: 2vh 7vw;
+    padding: 2vh 7vw 5vh;
 
     .card-container {
         display: grid;
@@ -275,6 +293,10 @@ main {
                     .recipe-description {
                         color: $black;
                         font-size: 14px;
+                        height: 80px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: pre-wrap;
                     }
                 }
 
