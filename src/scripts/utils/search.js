@@ -28,18 +28,56 @@ const searchInput = (input, data, fields) => {
     return { filteredData };
 };
 
-//Function that searches the array of ingredients with the ingredient inputs
-const ingredientSearchFn = (input, data) => {
-    const regex = new RegExp(input, "i");
-    let filteredData = [];
+// Function that searches the array of ingredients with the ingredient inputs
+const ingredientSearchFn = (inputs, data) => {
+    const ingredientFilteredData = [];
 
-    for (const item of data) {
-        if (regex.test(item)) {
-            filteredData.push(item);
+    for (const input of inputs) {
+        const regex = new RegExp(input, "i");
+        for (const recipe of data) {
+            for (const ingredient of recipe.ingredients) {
+                if (regex.test(ingredient.ingredient)) {
+                    ingredientFilteredData.push(recipe);
+                }
+            }
         }
     }
 
-    return { filteredData };
+    return ingredientFilteredData;
+};
+
+// Function that searches the array of appliances with the appliances inputs
+const applianceSearchFn = (inputs, data) => {
+    const applianceFilteredData = [];
+
+    for (const input of inputs) {
+        const regex = new RegExp(input, "i");
+        for (const recipe of data) {
+            if (regex.test(recipe.appliance)) {
+                applianceFilteredData.push(recipe);
+            }
+        }
+    }
+
+    return applianceFilteredData;
+};
+
+// Function that searches the array of ustensils with the ustensil inputs
+const ustensilSearchFn = (inputs, data) => {
+    const ustensilFilteredData = [];
+    console.log(inputs.length);
+    for (const input of inputs) {
+        const regex = new RegExp(input, "i");
+        for (const recipe of data) {
+            for (const ustensil of recipe.ustensils) {
+                if (regex.test(ustensil)) {
+                    ingredientFilteredData.push(recipe);
+                }
+            }
+        }
+    }
+
+    return ustensilFilteredData;
 };
 
 //refreshes all cards using array of data
@@ -98,12 +136,24 @@ const getUniqueEntries = (recipeData, field) => {
 
 //Function that handles a click event on a tag in the dropdown lists, adds the correct UI element and sets up the state
 const handleTagSelection = (label, field) => {
-    //Creates UI element on click
-    const labelTagContainer = document.querySelector(".label-tag-container");
     const tagModel = tagTemplate();
-
-    const labelCard = tagModel.getTagLabel(label);
-    labelTagContainer.appendChild(labelCard);
+    //Creates UI element on click
+    const newTag = tagModel.getTagLabel(label);
+    const tagContainer = document.querySelector(".label-tag-container");
+    tagContainer.appendChild(newTag);
 
     //Sets up the correct state depending on the kind of dropdown used
+    switch (field) {
+        case "ingredient":
+            context.setSelectedIngredients(label);
+            break;
+        case "appliances":
+            context.setSelectedAppliances(label);
+            break;
+        case "ustensils":
+            context.setSelectedUstensils(label);
+            break;
+        default:
+            break;
+    }
 };

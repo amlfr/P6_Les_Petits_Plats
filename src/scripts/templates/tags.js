@@ -11,8 +11,9 @@ const tagTemplate = () => {
         deleteLabelImage.src = "./assets/images/icons/delete.svg";
         deleteLabelImage.alt = "delete icon";
         deleteLabelImage.classList.add("delete-icon");
-        deleteLabelImage.addEventListener("click", function () {
+        deleteLabelImage.addEventListener("click", () => {
             labelCard.remove();
+            context.deleteSelectedIngredients(tagName);
         });
         labelCard.appendChild(deleteLabelImage);
 
@@ -20,16 +21,23 @@ const tagTemplate = () => {
     };
 
     const getTagListItem = (tagName, field) => {
-        const tagModel = tagTemplate();
         const listItem = document.createElement("li");
         listItem.textContent = tagName;
         listItem.classList.add("dropdown-list-item");
         listItem.classList.add("ingredient-list-item");
-        listItem.addEventListener("click", () => {
+        /* listItem.addEventListener("click", () => {
             const newTag = tagModel.getTagLabel(tagName);
             const tagContainer = document.querySelector(".label-tag-container");
             tagContainer.appendChild(newTag);
-            console.log(field);
+            switch (field) {
+                case "":
+                    break;
+                default:
+                    break;
+            }
+        }); */
+        listItem.addEventListener("click", () => {
+            handleTagSelection(tagName, field);
         });
 
         return listItem;

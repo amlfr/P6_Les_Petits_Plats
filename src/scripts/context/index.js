@@ -33,6 +33,17 @@ const context = {
     getCurrentData: () => context.state.currentData,
     setCurrentData: (newCurrentData) => {
         context.state.currentData = newCurrentData;
+        refreshCards(newCurrentData);
+        context.setIngredientsData(
+            getUniqueEntries(newCurrentData, "ingredients.ingredient")
+        );
+        context.setUstensilsData(getUniqueEntries(newCurrentData, "ustensils"));
+        context.setAppliancesData(
+            getUniqueEntries(newCurrentData, "appliance")
+        );
+
+        const newAllCards = document.querySelectorAll(".recipe-card");
+        context.setCards(newAllCards);
     },
 
     // Ingredients data interface
@@ -75,16 +86,7 @@ const context = {
             ["name", "description", "ingredients"]
         );
 
-        refreshCards(filteredData);
         context.setCurrentData(filteredData);
-        context.setIngredientsData(
-            getUniqueEntries(filteredData, "ingredients.ingredient")
-        );
-        context.setUstensilsData(getUniqueEntries(filteredData, "ustensils"));
-        context.setAppliancesData(getUniqueEntries(filteredData, "appliance"));
-
-        const newAllCards = document.querySelectorAll(".recipe-card");
-        context.setCards(newAllCards);
     },
 
     // Ingredient search input interface
@@ -122,15 +124,79 @@ const context = {
 
     //selected ingredients tags interface
     getSelectedIngredients: () => context.state.selectedIngredients,
-    setSelectedIngredients: (newSelectedIngredients) => {
-        context.state.selectedIngredients.push(newSelectedIngredients);
-        console.log(context.getSelectedIngredients());
+    setSelectedIngredients: (newSelectedIngredients, type = "push") => {
+        if (newSelectedIngredients.length === 0) {
+            context.setCurrentData(context.state.recipeData);
+        } else {
+            if (type === "replace") {
+                context.state.selectedIngredients = newSelectedIngredients;
+            } else {
+                context.state.selectedIngredients.push(newSelectedIngredients);
+            }
+
+            const ingredientFilteredData = ingredientSearchFn(
+                context.state.selectedIngredients,
+                context.state.recipeData
+            );
+
+            context.setCurrentData(ingredientFilteredData);
+            //console.log(context.state.currentData);
+        }
     },
     deleteSelectedIngredients: (targetSelectedIngredient) => {
         const selectedIngredients = context.getSelectedIngredients();
         for (let i = selectedIngredients.length - 1; i >= 0; i--) {
-            if (myArray[i] === stringToDelete) {
-                myArray.splice(i, 1);
+            if (selectedIngredients[i] === targetSelectedIngredient) {
+                const newIngredients = selectedIngredients.toSpliced(i, 1);
+                context.setSelectedIngredients(newIngredients, "replace");
+            }
+        }
+    },
+
+    //selected appliances tags interface
+    getSelectedAppliances: () => context.state.selectedAppliances,
+    setSelectedAppliances: (newSelectedAppliances) => {
+        if (newSelectedAppliances.length === 0) {
+            context.setCurrentData(context.state.recipeData);
+        } else {
+            context.state.selectedAppliances.push(newSelectedAppliances);
+            const applianceFilteredData = applianceSearchFn(
+                context.state.selectedAppliances,
+                context.state.recipeData
+            );
+            context.setCurrentData(applianceFilteredData);
+        }
+    },
+    deleteSelectedAppliances: (targetSelectedAppliance) => {
+        const selectedAppliances = context.getSelectedAppliances();
+        for (let i = selectedAppliances.length - 1; i >= 0; i--) {
+            if (selectedAppliances[i] === targetSelectedAppliance) {
+                selectedAppliances.splice(i, 1);
+                context.setSelectedAppliances(selectedAppliances, "replace");
+            }
+        }
+    },
+
+    //selected ustensils tags interface
+    getSelectedUstensils: () => context.state.selectedUstensils,
+    setSelectedUstensils: (newSelectedUstensils) => {
+        if (newSelectedUstensils.length === 0) {
+            context.setCurrentData(context.state.recipeData);
+        } else {
+            context.state.selectedUstensils.push(newSelectedUstensils);
+            const ustensilFilteredData = ustensilSearchFn(
+                context.state.selectedUstensils,
+                context.state.recipeData
+            );
+            context.setCurrentData(ustensilFilteredData);
+        }
+    },
+    deleteSelectedUstensils: (targetSelectedUstensil) => {
+        const selectedUstensils = context.getSelectedUstensils();
+        for (let i = selectedUstensils.length - 1; i >= 0; i--) {
+            if (selectedUstensils[i] === targetSelectedUstensil) {
+                selectedUstensils.splice(i, 1);
+                context.setSelectedUstensils(selectedUstensils, "replace");
             }
         }
     },

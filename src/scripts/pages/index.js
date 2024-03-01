@@ -19,15 +19,15 @@ const init = async () => {
     context.setRecipeData(recipes);
 
     //Creates the cards and appends them on the page
-    const recipeCardsContainer = document.querySelector(".card-container");
+    /* const recipeCardsContainer = document.querySelector(".card-container");
     for (const recipe of recipes) {
         const recipeCard = recipeModel.getRecipeCard(recipe);
         recipeCardsContainer.appendChild(recipeCard);
-    }
+    } */
 
     //Sets up the created cards in the context
-    const allCards = document.querySelectorAll(".recipe-card");
-    context.setCards(allCards);
+    //const allCards = document.querySelectorAll(".recipe-card");
+    //context.setCards(allCards);
 
     //Links context input string to the user input and creates listener that starts acting after 3 letters for search
     const mainSearchInput = document.querySelector(".search-input");
