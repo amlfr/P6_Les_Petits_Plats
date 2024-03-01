@@ -1,52 +1,137 @@
-const context = (() => {
-    let state = {
-        recipeData: [],
-        cards: [],
-        mainSearchInput: "",
-        ingredientSearch: "",
-        utensilSearch: "",
-        applianceSearch: "",
-        labelCards: [],
-    };
+const initialState = {
+    recipeData: [],
+    currentData: [],
+    ingredientsData: [],
+    appliancesData: [],
+    ustensilsData: [],
+    mainSearchInput: "",
+    ingredientSearch: "",
+    ustensilSearch: "",
+    applianceSearch: "",
+    selectedIngredients: [],
+    selectedAppliances: [],
+    selectedUstensils: [],
+    cards: [],
+};
+
+const context = {
+    state: initialState,
+
+    // Full recipe data interface
+    getRecipeData: () => context.state.recipeData,
+    setRecipeData: (newRecipeData) => {
+        context.state.recipeData = newRecipeData;
+        context.setCurrentData(newRecipeData);
+        context.setIngredientsData(
+            getUniqueEntries(newRecipeData, "ingredients.ingredient")
+        );
+        context.setUstensilsData(getUniqueEntries(newRecipeData, "ustensils"));
+        context.setAppliancesData(getUniqueEntries(newRecipeData, "appliance"));
+    },
+
+    // Current data interface
+    getCurrentData: () => context.state.currentData,
+    setCurrentData: (newCurrentData) => {
+        context.state.currentData = newCurrentData;
+    },
+
+    // Ingredients data interface
+    getIngredientsData: () => context.state.ingredientsData,
+    setIngredientsData: (newIngredientsData) => {
+        context.state.ingredientsData = newIngredientsData;
+        refreshDropdown("ingredient", newIngredientsData);
+    },
+
+    // Appliances data interface
+    getAppliancesData: () => context.state.appliancesData,
+    setAppliancesData: (newAppliancesData) => {
+        context.state.appliancesData = newAppliancesData;
+
+        refreshDropdown("appliances", newAppliancesData);
+    },
+
+    // Ustensils data interface
+    getUstensilsData: () => context.state.ustensilsData,
+    setUstensilsData: (newUstensilsData) => {
+        context.state.ustensilsData = newUstensilsData;
+        refreshDropdown("ustensils", newUstensilsData);
+    },
 
     // Cards interface
-    const getCards = () => state.cards;
-    const setCards = (newCards) => {
-        state.cards = newCards;
-        updateCardsNumber();
-    };
+    getCards: () => context.state.cards,
+    setCards: (newCards) => {
+        context.state.cards = newCards;
+        updateCardsNumber(context);
+    },
 
-    // main search input interface
-    const getSearchInput = () => state.searchInput;
-    const setSearchInput = (newSearchInput) =>
-        (state.searchInput = newSearchInput);
+    // Main search input interface
+    getSearchInput: () => context.state.mainSearchInput,
+    setSearchInput: (newSearchInput) => {
+        context.state.mainSearchInput = newSearchInput;
 
-    // ingredient search input interface
-    const getIngredientSearchInput = () => state.ingredientSearch;
-    const setIngredientSearchInput = (newIngredientSearchInput) =>
-        (state.ingredientSearch = newIngredientSearchInput);
+        const { filteredData } = searchInput(
+            newSearchInput,
+            context.state.recipeData,
+            ["name", "description", "ingredients"]
+        );
 
-    // utensils search input interface
+        refreshCards(filteredData);
+        context.setCurrentData(filteredData);
+        context.setIngredientsData(
+            getUniqueEntries(filteredData, "ingredients.ingredient")
+        );
+        context.setUstensilsData(getUniqueEntries(filteredData, "ustensils"));
+        context.setAppliancesData(getUniqueEntries(filteredData, "appliance"));
 
-    const getUtensilsSearchInput = () => state.utensilSearch;
-    const setUtensilsSearchInput = (newSearchInput) =>
-        (state.utensilSearch = newSearchInput);
+        const newAllCards = document.querySelectorAll(".recipe-card");
+        context.setCards(newAllCards);
+    },
 
-    // appliance search input interface
-    const getApplianceSearchInput = () => state.applianceSearch;
-    const setApplianceSearchInput = (newApplianceSearchInput) =>
-        (state.applianceSearch = newApplianceSearchInput);
+    // Ingredient search input interface
+    getIngredientSearchInput: () => context.state.ingredientSearch,
+    setIngredientSearchInput: (newIngredientSearchInput) => {
+        context.state.ingredientSearch = newIngredientSearchInput;
+        const { filteredData } = tagSearchInput(
+            newIngredientSearchInput,
+            context.state.ingredientsData
+        );
+        refreshDropdown("ingredient", filteredData);
+    },
 
-    return {
-        getCards,
-        setCards,
-        getSearchInput,
-        setSearchInput,
-        getIngredientSearchInput,
-        setIngredientSearchInput,
-        getUtensilsSearchInput,
-        setUtensilsSearchInput,
-        getApplianceSearchInput,
-        setApplianceSearchInput,
-    };
-})();
+    // Ustensil search input interface
+    getUstensilsSearchInput: () => context.state.ustensilSearch,
+    setUstensilsSearchInput: (newUstensilSearchInput) => {
+        context.state.ustensilSearch = newUstensilSearchInput;
+        const { filteredData } = tagSearchInput(
+            newUstensilSearchInput,
+            context.state.ustensilsData
+        );
+        refreshDropdown("ustensils", filteredData);
+    },
+
+    // Appliance search input interface
+    getApplianceSearchInput: () => context.state.applianceSearch,
+    setApplianceSearchInput: (newApplianceSearchInput) => {
+        context.state.applianceSearch = newApplianceSearchInput;
+        const { filteredData } = tagSearchInput(
+            newApplianceSearchInput,
+            context.state.appliancesData
+        );
+        refreshDropdown("appliances", filteredData);
+    },
+
+    //selected ingredients tags interface
+    getSelectedIngredients: () => context.state.selectedIngredients,
+    setSelectedIngredients: (newSelectedIngredients) => {
+        context.state.selectedIngredients.push(newSelectedIngredients);
+        console.log(context.getSelectedIngredients());
+    },
+    deleteSelectedIngredients: (targetSelectedIngredient) => {
+        const selectedIngredients = context.getSelectedIngredients();
+        for (let i = selectedIngredients.length - 1; i >= 0; i--) {
+            if (myArray[i] === stringToDelete) {
+                myArray.splice(i, 1);
+            }
+        }
+    },
+};

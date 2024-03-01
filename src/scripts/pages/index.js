@@ -15,6 +15,9 @@ const init = async () => {
     const recipeModel = recipeTemplate();
     const tagModel = tagTemplate();
 
+    //Loads data into context
+    context.setRecipeData(recipes);
+
     //Creates the cards and appends them on the page
     const recipeCardsContainer = document.querySelector(".card-container");
     for (const recipe of recipes) {
@@ -34,26 +37,56 @@ const init = async () => {
         if (inputValue.length >= 3) {
             deleteSearch.style.display = "block";
             context.setSearchInput(inputValue);
-            console.log(context.getSearchInput());
         } else {
             deleteSearch.style.display = "none";
+            context.setSearchInput("");
         }
     });
 
-    //Placeholder labels to test functionnality
-    const labelTagContainer = document.querySelector(".label-tag-container");
-    const labelArray = [
-        "Coco",
-        "Marmite",
-        "Fourchette",
-        "Verre",
-        "Poulet",
-        "Citron",
-    ];
-    for (const label of labelArray) {
-        const labelCard = tagModel.getTagLabel(label);
-        labelTagContainer.appendChild(labelCard);
-    }
+    //Sets up listener for ingredient search, acts after 3 letters and resets itself
+    const ingredientSearchInput = document.querySelector(".ingredient-input");
+    ingredientSearchInput.addEventListener("input", function (event) {
+        const inputValue = event.target.value;
+        //TODO ADD inputs and delete buttons on each search
+        //const deleteSearch = document.querySelector(".delete-input");
+        if (inputValue.length >= 3) {
+            //deleteSearch.style.display = "block";
+            context.setIngredientSearchInput(inputValue);
+        } else {
+            //deleteSearch.style.display = "none";
+            context.setIngredientSearchInput("");
+        }
+    });
+
+    //
+    const applianceSearchInput = document.querySelector(".appliances-input");
+    applianceSearchInput.addEventListener("input", function (event) {
+        const inputValue = event.target.value;
+        //TODO ADD inputs and delete buttons on each search
+        //const deleteSearch = document.querySelector(".delete-input");
+        if (inputValue.length >= 3) {
+            //deleteSearch.style.display = "block";
+            context.setApplianceSearchInput(inputValue);
+        } else {
+            //deleteSearch.style.display = "none";
+            context.setApplianceSearchInput("");
+        }
+    });
+
+    //
+    const ustensilsSearchInput = document.querySelector(".ustensils-input");
+    ustensilsSearchInput.addEventListener("input", function (event) {
+        const inputValue = event.target.value;
+        //TODO ADD inputs and delete buttons on each search
+        //const deleteSearch = document.querySelector(".delete-input");
+        if (inputValue.length >= 3) {
+            //deleteSearch.style.display = "block";
+            context.setUstensilsSearchInput(inputValue);
+        } else {
+            //deleteSearch.style.display = "none";
+            context.setUstensilsSearchInput("");
+        }
+    });
 };
 
 init();
