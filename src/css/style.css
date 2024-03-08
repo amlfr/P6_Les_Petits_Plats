@@ -77,10 +77,11 @@ main {
   width: 50px;
   cursor: pointer;
   display: none;
+  background-color: transparent;
+  border: none;
 }
 .search-section .search-container .button-container .delete-button .delete-icon {
   width: 50px;
-  display: none;
 }
 .search-section .search-container .button-container .search-button {
   background-color: #1b1b1b;

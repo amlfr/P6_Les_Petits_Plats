@@ -40,11 +40,14 @@
                     </h1>
                     <input
                         type="text"
-                        class="search-input"
+                        class="search-input global-search-input"
                         placeholder="Rechercher une recette, un ingrédient, ..."
                     />
                     <div class="button-container">
-                        <button class="delete-button global-delete-button">
+                        <button
+                            onclick="clearMainInput()"
+                            class="delete-button global-delete-button"
+                        >
                             <img
                                 src="./assets/images/icons/delete.svg"
                                 alt="Delete icon"
@@ -52,7 +55,7 @@
                             />
                         </button>
                         <button
-                            onclick="globalSearch(context.getRecipeData(), context.getSearchInput(), context.getIngredientsData(), context.getAppliancesData(), context.getUstensilsData())"
+                            onclick="globalSearch(context.getRecipeData(), context.getSearchInput(), context.getSelectedIngredients(), context.getSelectedAppliances(), context.getSelectedUstensils())"
                             class="search-button main-search-button"
                         >
                             <img
@@ -83,6 +86,7 @@
                                         type="text"
                                     />
                                     <button
+                                        onclick="clearIngredientInput()"
                                         class="delete-button ustensils-delete-button"
                                     >
                                         <img
@@ -121,6 +125,7 @@
                                         type="text"
                                     />
                                     <button
+                                        onclick="clearInput('appliances-input')"
                                         class="delete-button ustensils-delete-button"
                                     >
                                         <img
@@ -159,6 +164,7 @@
                                         type="text"
                                     />
                                     <button
+                                        onclick="clearInput('ustensils-input')"
                                         class="delete-button ustensils-delete-button"
                                     >
                                         <img
@@ -197,6 +203,7 @@
     <script src="./src/scripts/pages/index.js"></script>
     <script src="./src/scripts/utils/counter.js"></script>
     <script src="./src/scripts/utils/search.js"></script>
+    <script src="./src/scripts/utils/buttons.js"></script>
     <script src="./src/scripts/templates/recipe.js"></script>
     <script src="./src/scripts/templates/tags.js"></script>
 </html>

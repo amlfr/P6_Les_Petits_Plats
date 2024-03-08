@@ -14,6 +14,11 @@ const tagTemplate = () => {
         deleteLabelImage.addEventListener("click", () => {
             labelCard.remove();
             context.deleteSelectedIngredients(tagName);
+            context.deleteSelectedAppliances(tagName);
+            context.deleteSelectedUstensils(tagName);
+            console.log(context.getSelectedIngredients(), "select ingredients");
+            console.log(context.getSelectedAppliances(), "select appliances");
+            console.log(context.getSelectedUstensils(), "select ustensils");
         });
         labelCard.appendChild(deleteLabelImage);
 
@@ -38,6 +43,13 @@ const tagTemplate = () => {
         }); */
         listItem.addEventListener("click", () => {
             handleTagSelection(tagName, field);
+            globalSearch(
+                context.getRecipeData(),
+                context.getSearchInput(),
+                context.getSelectedIngredients(),
+                context.getSelectedAppliances(),
+                context.getSelectedUstensils()
+            );
         });
 
         return listItem;

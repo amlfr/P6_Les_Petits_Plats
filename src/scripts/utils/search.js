@@ -1,34 +1,41 @@
-//Search function using the input and data given to search the fields given in array form
-const searchInput = (input, data, fields) => {
+//Search function using the input and data given
+const searchInput = (input, data) => {
     let filteredData = [];
     const regex = new RegExp(input, "i");
 
-    for (const recipe of data) {
-        let found = false;
-        for (const field of fields) {
-            if (regex.test(recipe[field])) {
-                found = true;
+    if (input === "") {
+        filteredData = data;
+        return { filteredData };
+    }
+
+    for (let i = 0; i < data.length; i++) {
+        const recipe = data[i];
+
+        const nameFound = regex.test(recipe.name.toLowerCase());
+        const descriptionFound = regex.test(recipe.description.toLowerCase());
+
+        if (nameFound || descriptionFound) {
+            filteredData.push(recipe);
+            continue;
+        }
+
+        for (let j = 0; j < recipe.ingredients.length; j++) {
+            const ingredient = recipe.ingredients[j];
+            const ingredientFound = regex.test(
+                ingredient.ingredient.toLowerCase()
+            );
+
+            if (ingredientFound) {
+                filteredData.push(recipe);
                 break;
             }
-            if (field === "ingredients") {
-                for (let k = 0; k < recipe.ingredients.length; k++) {
-                    const ingredient = recipe.ingredients[k];
-
-                    if (regex.test(ingredient.ingredient)) {
-                        found = true;
-                    }
-                }
-            }
-        }
-        if (found) {
-            filteredData.push(recipe);
         }
     }
 
     return { filteredData };
 };
 
-//Function that searches the array of ingredients with the ingredient input
+//Function an array of tags with an input
 const tagSearchInput = (
     input,
     data
@@ -48,7 +55,12 @@ const tagSearchInput = (
 
 // Function that searches the array of ingredients with the ingredient inputs
 const ingredientSearchFn = (inputs, data) => {
-    const ingredientFilteredData = [];
+    let ingredientFilteredData = [];
+
+    if (inputs.length === 0) {
+        ingredientFilteredData = data;
+        return ingredientFilteredData;
+    }
 
     for (const input of inputs) {
         const regex = new RegExp(input, "i");
@@ -66,10 +78,16 @@ const ingredientSearchFn = (inputs, data) => {
 
 // Function that searches the array of appliances with the appliances inputs
 const applianceSearchFn = (inputs, data) => {
-    const applianceFilteredData = [];
+    let applianceFilteredData = [];
+
+    if (inputs.length === 0) {
+        applianceFilteredData = data;
+        return applianceFilteredData;
+    }
 
     for (const input of inputs) {
         const regex = new RegExp(input, "i");
+
         for (const recipe of data) {
             if (regex.test(recipe.appliance)) {
                 applianceFilteredData.push(recipe);
@@ -82,14 +100,20 @@ const applianceSearchFn = (inputs, data) => {
 
 // Function that searches the array of ustensils with the ustensil inputs
 const ustensilSearchFn = (inputs, data) => {
-    const ustensilFilteredData = [];
-    console.log(inputs.length);
+    let ustensilFilteredData = [];
+
+    if (inputs.length === 0) {
+        ustensilFilteredData = data;
+        return ustensilFilteredData;
+    }
+
     for (const input of inputs) {
         const regex = new RegExp(input, "i");
+
         for (const recipe of data) {
             for (const ustensil of recipe.ustensils) {
                 if (regex.test(ustensil)) {
-                    ingredientFilteredData.push(recipe);
+                    ustensilFilteredData.push(recipe);
                 }
             }
         }
@@ -185,11 +209,34 @@ const globalSearch = (
     appliancesInput,
     ustensilsInput
 ) => {
-    console.log(
-        data,
-        mainInput,
-        ingredientInputs,
-        appliancesInput,
-        ustensilsInput
+    const { filteredData } = searchInput(mainInput, data);
+
+    const ingredientsFilteredData = ingredientSearchFn(
+        context.getSelectedIngredients(),
+        filteredData
     );
+    // console.log(
+    //     ingredientsFilteredData,
+    //    "filtered Input after ingredients search"
+    //  );
+    const appliancesFilteredData = applianceSearchFn(
+        context.getSelectedAppliances(),
+        ingredientsFilteredData
+    );
+    // console.log(
+    // appliancesFilteredData,
+    //  "filtered Input after appliances search"
+    // );
+    const ustensilsFilteredData = ustensilSearchFn(
+        context.getSelectedUstensils(),
+        appliancesFilteredData
+    );
+    // console.log(ustensilsFilteredData, "filtered Input after ustensils search");
+    console.log(context.getSelectedIngredients(), "select ingredients");
+    console.log(context.getSelectedAppliances(), "select appliances");
+    console.log(context.getSelectedUstensils(), "select ustensils");
+
+    refreshCards(ustensilsFilteredData);
+
+    context.setCurrentData(ustensilsFilteredData);
 };

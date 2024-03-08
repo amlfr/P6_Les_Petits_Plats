@@ -73,7 +73,9 @@ const recipeTemplate = () => {
             const ingredientMeasurement = document.createElement("p");
             ingredientMeasurement.classList.add("ingredient-quantity");
             ingredientMeasurement.textContent =
-                ingredient.quantity + " " + ingredient.unit;
+                (ingredient.quantity ? ingredient.quantity : "") +
+                " " +
+                (ingredient.unit ? ingredient.unit : "");
             ingredientItem.appendChild(ingredientMeasurement);
 
             ingredientsContainer.appendChild(ingredientItem);

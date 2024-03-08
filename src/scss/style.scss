@@ -89,9 +89,10 @@ main {
                 width: 50px;
                 cursor: pointer;
                 display: none;
+                background-color: transparent;
+                border: none;
                 .delete-icon {
                     width: 50px;
-                    display: none;
                 }
             }
 

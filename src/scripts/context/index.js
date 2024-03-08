@@ -79,7 +79,13 @@ const context = {
     getSearchInput: () => context.state.mainSearchInput,
     setSearchInput: (newSearchInput) => {
         context.state.mainSearchInput = newSearchInput;
-
+        globalSearch(
+            context.getRecipeData(),
+            context.getSearchInput(),
+            context.getSelectedIngredients(),
+            context.getSelectedAppliances(),
+            context.getSelectedUstensils()
+        );
         //context.setCurrentData(filteredData);
     },
 
@@ -120,24 +126,21 @@ const context = {
     getSelectedIngredients: () => context.state.selectedIngredients,
     setSelectedIngredients: (newSelectedIngredients, type = "push") => {
         if (newSelectedIngredients.length === 0) {
-            context.setCurrentData(context.state.recipeData);
+            context.setCurrentData(context.fgetRecipeData());
         } else {
             if (type === "replace") {
                 context.state.selectedIngredients = newSelectedIngredients;
             } else {
                 context.state.selectedIngredients.push(newSelectedIngredients);
             }
-
-            //context.setCurrentData(ingredientFilteredData);
-            //console.log(context.state.currentData);
         }
     },
     deleteSelectedIngredients: (targetSelectedIngredient) => {
         const selectedIngredients = context.getSelectedIngredients();
         for (let i = selectedIngredients.length - 1; i >= 0; i--) {
             if (selectedIngredients[i] === targetSelectedIngredient) {
-                const newIngredients = selectedIngredients.toSpliced(i, 1);
-                context.setSelectedIngredients(newIngredients, "replace");
+                selectedIngredients.splice(i, 1);
+                context.setSelectedIngredients(selectedIngredients, "replace");
             }
         }
     },
