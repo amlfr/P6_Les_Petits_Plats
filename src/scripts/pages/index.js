@@ -33,7 +33,7 @@ const init = async () => {
     const mainSearchInput = document.querySelector(".search-input");
     mainSearchInput.addEventListener("input", function (event) {
         const inputValue = event.target.value;
-        const deleteSearch = document.querySelector(".delete-input");
+        const deleteSearch = document.querySelector(".global-delete-button");
         if (inputValue.length >= 3) {
             deleteSearch.style.display = "block";
             context.setSearchInput(inputValue);

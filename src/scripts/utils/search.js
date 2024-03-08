@@ -28,6 +28,24 @@ const searchInput = (input, data, fields) => {
     return { filteredData };
 };
 
+//Function that searches the array of ingredients with the ingredient input
+const tagSearchInput = (
+    input,
+    data
+    //fields
+) => {
+    const regex = new RegExp(input, "i");
+    let filteredData = [];
+
+    for (const item of data) {
+        if (regex.test(item)) {
+            filteredData.push(item);
+        }
+    }
+
+    return { filteredData };
+};
+
 // Function that searches the array of ingredients with the ingredient inputs
 const ingredientSearchFn = (inputs, data) => {
     const ingredientFilteredData = [];
@@ -156,4 +174,22 @@ const handleTagSelection = (label, field) => {
         default:
             break;
     }
+};
+
+//Global search function that runs every search in order and returns an array of data to be displayed
+
+const globalSearch = (
+    data,
+    mainInput,
+    ingredientInputs,
+    appliancesInput,
+    ustensilsInput
+) => {
+    console.log(
+        data,
+        mainInput,
+        ingredientInputs,
+        appliancesInput,
+        ustensilsInput
+    );
 };

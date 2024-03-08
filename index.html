@@ -44,11 +44,17 @@
                         placeholder="Rechercher une recette, un ingrédient, ..."
                     />
                     <div class="button-container">
-                        <img
-                            src="./assets/images/icons/delete.svg"
-                            class="delete-input"
-                        />
-                        <button class="search-button">
+                        <button class="delete-button global-delete-button">
+                            <img
+                                src="./assets/images/icons/delete.svg"
+                                alt="Delete icon"
+                                class="delete-icon"
+                            />
+                        </button>
+                        <button
+                            onclick="globalSearch(context.getRecipeData(), context.getSearchInput(), context.getIngredientsData(), context.getAppliancesData(), context.getUstensilsData())"
+                            class="search-button main-search-button"
+                        >
                             <img
                                 src="./assets/images/icons/search.svg"
                                 alt="Search icon"
@@ -71,10 +77,30 @@
                                 />
                             </div>
                             <div class="dropdown-content">
-                                <input
-                                    class="dropdown-input ingredient-input"
-                                    type="text"
-                                />
+                                <div class="input-wrapper">
+                                    <input
+                                        class="dropdown-input ingredient-input"
+                                        type="text"
+                                    />
+                                    <button
+                                        class="delete-button ustensils-delete-button"
+                                    >
+                                        <img
+                                            src="./assets/images/icons/delete.svg"
+                                            alt="Delete icon"
+                                            class="delete-icon"
+                                        />
+                                    </button>
+                                    <button
+                                        class="search-button ingredient-search-button"
+                                    >
+                                        <img
+                                            src="./assets/images/icons/search.svg"
+                                            alt="Search icon"
+                                            class="search-icon"
+                                        />
+                                    </button>
+                                </div>
                                 <ul class="dropdown-list ingredient-list"></ul>
                             </div>
                         </div>
@@ -89,10 +115,30 @@
                                 />
                             </div>
                             <div class="dropdown-content">
-                                <input
-                                    class="dropdown-input appliances-input"
-                                    type="text"
-                                />
+                                <div class="input-wrapper">
+                                    <input
+                                        class="dropdown-input appliances-input"
+                                        type="text"
+                                    />
+                                    <button
+                                        class="delete-button ustensils-delete-button"
+                                    >
+                                        <img
+                                            src="./assets/images/icons/delete.svg"
+                                            alt="Delete icon"
+                                            class="delete-icon"
+                                        />
+                                    </button>
+                                    <button
+                                        class="search-button appliances-search-button"
+                                    >
+                                        <img
+                                            src="./assets/images/icons/search.svg"
+                                            alt="Search icon"
+                                            class="search-icon"
+                                        />
+                                    </button>
+                                </div>
                                 <ul class="dropdown-list appliances-list"></ul>
                             </div>
                         </div>
@@ -107,10 +153,30 @@
                                 />
                             </div>
                             <div class="dropdown-content">
-                                <input
-                                    class="dropdown-input ustensils-input"
-                                    type="text"
-                                />
+                                <div class="input-wrapper">
+                                    <input
+                                        class="dropdown-input ustensils-input"
+                                        type="text"
+                                    />
+                                    <button
+                                        class="delete-button ustensils-delete-button"
+                                    >
+                                        <img
+                                            src="./assets/images/icons/delete.svg"
+                                            alt="Delete icon"
+                                            class="delete-icon"
+                                        />
+                                    </button>
+                                    <button
+                                        class="search-button ustensils-search-button"
+                                    >
+                                        <img
+                                            src="./assets/images/icons/search.svg"
+                                            alt="Search icon"
+                                            class="search-icon"
+                                        />
+                                    </button>
+                                </div>
                                 <ul class="dropdown-list ustensils-list"></ul>
                             </div>
                         </div>

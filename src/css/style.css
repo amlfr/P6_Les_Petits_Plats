@@ -73,9 +73,13 @@ main {
   bottom: 6vh;
   left: 28vw;
 }
-.search-section .search-container .button-container .delete-input {
+.search-section .search-container .button-container .delete-button {
   width: 50px;
   cursor: pointer;
+  display: none;
+}
+.search-section .search-container .button-container .delete-button .delete-icon {
+  width: 50px;
   display: none;
 }
 .search-section .search-container .button-container .search-button {
@@ -131,14 +135,20 @@ main {
   border-radius: 0px 0px 10px 10px;
   text-align: center;
 }
-.label-search-section .label-search-container .dropdown-container .dropdown-wrapper .dropdown-content .dropdown-input {
+.label-search-section .label-search-container .dropdown-container .dropdown-wrapper .dropdown-content .input-wrapper {
+  display: flex;
+}
+.label-search-section .label-search-container .dropdown-container .dropdown-wrapper .dropdown-content .input-wrapper .dropdown-input {
   height: 3.5vh;
   width: 90%;
   margin-left: auto;
   display: inline-block;
 }
-.label-search-section .label-search-container .dropdown-container .dropdown-wrapper .dropdown-content .dropdown-input:focus-visible {
+.label-search-section .label-search-container .dropdown-container .dropdown-wrapper .dropdown-content .input-wrapper .dropdown-input:focus-visible {
   outline: none;
+}
+.label-search-section .label-search-container .dropdown-container .dropdown-wrapper .dropdown-content .input-wrapper .search-button {
+  height: 3.5vh;
 }
 .label-search-section .label-search-container .dropdown-container .dropdown-wrapper .dropdown-content .dropdown-list {
   list-style: none;

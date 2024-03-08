@@ -80,13 +80,7 @@ const context = {
     setSearchInput: (newSearchInput) => {
         context.state.mainSearchInput = newSearchInput;
 
-        const { filteredData } = searchInput(
-            newSearchInput,
-            context.state.recipeData,
-            ["name", "description", "ingredients"]
-        );
-
-        context.setCurrentData(filteredData);
+        //context.setCurrentData(filteredData);
     },
 
     // Ingredient search input interface
@@ -134,12 +128,7 @@ const context = {
                 context.state.selectedIngredients.push(newSelectedIngredients);
             }
 
-            const ingredientFilteredData = ingredientSearchFn(
-                context.state.selectedIngredients,
-                context.state.recipeData
-            );
-
-            context.setCurrentData(ingredientFilteredData);
+            //context.setCurrentData(ingredientFilteredData);
             //console.log(context.state.currentData);
         }
     },
@@ -160,11 +149,8 @@ const context = {
             context.setCurrentData(context.state.recipeData);
         } else {
             context.state.selectedAppliances.push(newSelectedAppliances);
-            const applianceFilteredData = applianceSearchFn(
-                context.state.selectedAppliances,
-                context.state.recipeData
-            );
-            context.setCurrentData(applianceFilteredData);
+
+            //context.setCurrentData(applianceFilteredData);
         }
     },
     deleteSelectedAppliances: (targetSelectedAppliance) => {
@@ -184,11 +170,8 @@ const context = {
             context.setCurrentData(context.state.recipeData);
         } else {
             context.state.selectedUstensils.push(newSelectedUstensils);
-            const ustensilFilteredData = ustensilSearchFn(
-                context.state.selectedUstensils,
-                context.state.recipeData
-            );
-            context.setCurrentData(ustensilFilteredData);
+
+            //context.setCurrentData(ustensilFilteredData);
         }
     },
     deleteSelectedUstensils: (targetSelectedUstensil) => {

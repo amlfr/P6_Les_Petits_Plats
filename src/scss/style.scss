@@ -85,10 +85,14 @@ main {
             bottom: 6vh;
             left: 28vw;
 
-            .delete-input {
+            .delete-button {
                 width: 50px;
                 cursor: pointer;
                 display: none;
+                .delete-icon {
+                    width: 50px;
+                    display: none;
+                }
             }
 
             .search-button {
@@ -152,14 +156,22 @@ main {
                     border-radius: 0px 0px 10px 10px;
                     text-align: center;
 
-                    .dropdown-input {
-                        height: 3.5vh;
-                        width: 90%;
-                        margin-left: auto;
-                        display: inline-block;
+                    .input-wrapper {
+                        display: flex;
 
-                        &:focus-visible {
-                            outline: none;
+                        .dropdown-input {
+                            height: 3.5vh;
+                            width: 90%;
+                            margin-left: auto;
+                            display: inline-block;
+
+                            &:focus-visible {
+                                outline: none;
+                            }
+                        }
+
+                        .search-button {
+                            height: 3.5vh;
                         }
                     }
 
