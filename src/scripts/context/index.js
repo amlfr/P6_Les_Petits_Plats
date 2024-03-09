@@ -17,7 +17,7 @@ const initialState = {
 const context = {
     state: initialState,
 
-    // Full recipe data interface
+    // Full recipe data interface called ojnly on loading
     getRecipeData: () => context.state.recipeData,
     setRecipeData: (newRecipeData) => {
         context.state.recipeData = newRecipeData;
@@ -33,7 +33,7 @@ const context = {
     getCurrentData: () => context.state.currentData,
     setCurrentData: (newCurrentData) => {
         context.state.currentData = newCurrentData;
-        refreshCards(newCurrentData);
+
         context.setIngredientsData(
             getUniqueEntries(newCurrentData, "ingredients.ingredient")
         );
@@ -41,7 +41,7 @@ const context = {
         context.setAppliancesData(
             getUniqueEntries(newCurrentData, "appliance")
         );
-
+        refreshCards(newCurrentData);
         const newAllCards = document.querySelectorAll(".recipe-card");
         context.setCards(newAllCards);
     },
@@ -126,7 +126,7 @@ const context = {
     getSelectedIngredients: () => context.state.selectedIngredients,
     setSelectedIngredients: (newSelectedIngredients, type = "push") => {
         if (newSelectedIngredients.length === 0) {
-            context.setCurrentData(context.fgetRecipeData());
+            context.setCurrentData(context.getCurrentData());
         } else {
             if (type === "replace") {
                 context.state.selectedIngredients = newSelectedIngredients;
@@ -147,11 +147,15 @@ const context = {
 
     //selected appliances tags interface
     getSelectedAppliances: () => context.state.selectedAppliances,
-    setSelectedAppliances: (newSelectedAppliances) => {
+    setSelectedAppliances: (newSelectedAppliances, type = "push") => {
         if (newSelectedAppliances.length === 0) {
-            context.setCurrentData(context.state.recipeData);
+            context.setCurrentData(context.getCurrentData());
         } else {
-            context.state.selectedAppliances.push(newSelectedAppliances);
+            if (type === "replace") {
+                context.state.selectedAppliances = newSelectedAppliances;
+            } else {
+                context.state.selectedAppliances.push(newSelectedAppliances);
+            }
 
             //context.setCurrentData(applianceFilteredData);
         }
@@ -168,11 +172,15 @@ const context = {
 
     //selected ustensils tags interface
     getSelectedUstensils: () => context.state.selectedUstensils,
-    setSelectedUstensils: (newSelectedUstensils) => {
+    setSelectedUstensils: (newSelectedUstensils, type = "push") => {
         if (newSelectedUstensils.length === 0) {
-            context.setCurrentData(context.state.recipeData);
+            context.setCurrentData(context.getCurrentData());
         } else {
-            context.state.selectedUstensils.push(newSelectedUstensils);
+            if (type === "replace") {
+                context.state.selectedUstensils = newSelectedUstensils;
+            } else {
+                context.state.selectedUstensils.push(newSelectedUstensils);
+            }
 
             //context.setCurrentData(ustensilFilteredData);
         }

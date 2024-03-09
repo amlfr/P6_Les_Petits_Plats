@@ -55,7 +55,7 @@ const tagSearchInput = (
 
 // Function that searches the array of ingredients with the ingredient inputs
 const ingredientSearchFn = (inputs, data) => {
-    let ingredientFilteredData = [];
+    let ingredientFilteredData = new Set();
 
     if (inputs.length === 0) {
         ingredientFilteredData = data;
@@ -67,7 +67,7 @@ const ingredientSearchFn = (inputs, data) => {
         for (const recipe of data) {
             for (const ingredient of recipe.ingredients) {
                 if (regex.test(ingredient.ingredient)) {
-                    ingredientFilteredData.push(recipe);
+                    ingredientFilteredData.add(recipe);
                 }
             }
         }
@@ -78,7 +78,7 @@ const ingredientSearchFn = (inputs, data) => {
 
 // Function that searches the array of appliances with the appliances inputs
 const applianceSearchFn = (inputs, data) => {
-    let applianceFilteredData = [];
+    let applianceFilteredData = new Set();
 
     if (inputs.length === 0) {
         applianceFilteredData = data;
@@ -90,7 +90,7 @@ const applianceSearchFn = (inputs, data) => {
 
         for (const recipe of data) {
             if (regex.test(recipe.appliance)) {
-                applianceFilteredData.push(recipe);
+                applianceFilteredData.add(recipe);
             }
         }
     }
@@ -100,7 +100,7 @@ const applianceSearchFn = (inputs, data) => {
 
 // Function that searches the array of ustensils with the ustensil inputs
 const ustensilSearchFn = (inputs, data) => {
-    let ustensilFilteredData = [];
+    let ustensilFilteredData = new Set();
 
     if (inputs.length === 0) {
         ustensilFilteredData = data;
@@ -113,7 +113,7 @@ const ustensilSearchFn = (inputs, data) => {
         for (const recipe of data) {
             for (const ustensil of recipe.ustensils) {
                 if (regex.test(ustensil)) {
-                    ustensilFilteredData.push(recipe);
+                    ustensilFilteredData.add(recipe);
                 }
             }
         }
@@ -180,23 +180,61 @@ const getUniqueEntries = (recipeData, field) => {
 const handleTagSelection = (label, field) => {
     const tagModel = tagTemplate();
     //Creates UI element on click
-    const newTag = tagModel.getTagLabel(label);
-    const tagContainer = document.querySelector(".label-tag-container");
-    tagContainer.appendChild(newTag);
-
+    let found = false;
     //Sets up the correct state depending on the kind of dropdown used
     switch (field) {
         case "ingredient":
-            context.setSelectedIngredients(label);
+            const selectedIngredients = context.getSelectedIngredients();
+
+            for (const ingredient of selectedIngredients) {
+                if (ingredient === label) {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                context.setSelectedIngredients(label);
+            }
+
             break;
         case "appliances":
-            context.setSelectedAppliances(label);
+            const selectedAppliances = context.getSelectedAppliances();
+
+            for (const appliance of selectedAppliances) {
+                if (appliance === label) {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                context.setSelectedAppliances(label);
+            }
+
             break;
         case "ustensils":
-            context.setSelectedUstensils(label);
+            const selectedUstensils = context.getSelectedUstensils();
+
+            for (const ustensil of selectedUstensils) {
+                if (ustensil === label) {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                context.setSelectedUstensils(label);
+            }
+
             break;
         default:
             break;
+    }
+    if (!found) {
+        const newTag = tagModel.getTagLabel(label, field);
+        const tagContainer = document.querySelector(".label-tag-container");
+        tagContainer.appendChild(newTag);
     }
 };
 

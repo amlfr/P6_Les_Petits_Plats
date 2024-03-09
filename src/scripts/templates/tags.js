@@ -1,5 +1,5 @@
 const tagTemplate = () => {
-    const getTagLabel = (tagName) => {
+    const getTagLabel = (tagName, field) => {
         const labelCard = document.createElement("div");
         labelCard.classList.add("label-tag-card");
 
@@ -13,13 +13,30 @@ const tagTemplate = () => {
         deleteLabelImage.classList.add("delete-icon");
         deleteLabelImage.addEventListener("click", () => {
             labelCard.remove();
-            context.deleteSelectedIngredients(tagName);
-            context.deleteSelectedAppliances(tagName);
-            context.deleteSelectedUstensils(tagName);
-            console.log(context.getSelectedIngredients(), "select ingredients");
-            console.log(context.getSelectedAppliances(), "select appliances");
-            console.log(context.getSelectedUstensils(), "select ustensils");
+
+            switch (field) {
+                case "ingredient":
+                    context.deleteSelectedIngredients(tagName);
+                    break;
+                case "appliances":
+                    context.deleteSelectedAppliances(tagName);
+                    break;
+                case "ustensils":
+                    context.deleteSelectedUstensils(tagName);
+                    break;
+                default:
+                    break;
+            }
+
+            globalSearch(
+                context.getRecipeData(),
+                context.getSearchInput(),
+                context.getSelectedIngredients(),
+                context.getSelectedAppliances(),
+                context.getSelectedUstensils()
+            );
         });
+
         labelCard.appendChild(deleteLabelImage);
 
         return labelCard;
