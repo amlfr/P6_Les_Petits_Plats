@@ -17,7 +17,7 @@ const initialState = {
 const context = {
     state: initialState,
 
-    // Full recipe data interface called ojnly on loading
+    // Full recipe data interface called only on loading
     getRecipeData: () => context.state.recipeData,
     setRecipeData: (newRecipeData) => {
         context.state.recipeData = newRecipeData;

@@ -156,6 +156,8 @@ main {
   padding: 0px;
   text-align: left;
   font-size: 14px;
+  max-height: 30vh;
+  overflow: scroll;
 }
 .label-search-section .label-search-container .dropdown-container .dropdown-wrapper .dropdown-content .dropdown-list .dropdown-list-item {
   padding: 10px 0px 10px 16px;

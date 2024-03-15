@@ -253,23 +253,17 @@ const globalSearch = (
         context.getSelectedIngredients(),
         filteredData
     );
-    // console.log(
-    //     ingredientsFilteredData,
-    //    "filtered Input after ingredients search"
-    //  );
+
     const appliancesFilteredData = applianceSearchFn(
         context.getSelectedAppliances(),
         ingredientsFilteredData
     );
-    // console.log(
-    // appliancesFilteredData,
-    //  "filtered Input after appliances search"
-    // );
+
     const ustensilsFilteredData = ustensilSearchFn(
         context.getSelectedUstensils(),
         appliancesFilteredData
     );
-    // console.log(ustensilsFilteredData, "filtered Input after ustensils search");
+
     console.log(context.getSelectedIngredients(), "select ingredients");
     console.log(context.getSelectedAppliances(), "select appliances");
     console.log(context.getSelectedUstensils(), "select ustensils");
