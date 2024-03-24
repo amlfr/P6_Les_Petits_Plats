@@ -37,9 +37,9 @@ const context = {
         const currentMessages = document.querySelectorAll(
             ".search-fail-message"
         );
-        for (const failMessage of currentMessages) {
+        currentMessages.forEach((failMessage) => {
             failMessage.remove();
-        }
+        });
 
         context.setIngredientsData(
             getUniqueEntries(newCurrentData, "ingredients.ingredient")
@@ -156,12 +156,12 @@ const context = {
     },
     deleteSelectedIngredients: (targetSelectedIngredient) => {
         const selectedIngredients = context.getSelectedIngredients();
-        for (let i = selectedIngredients.length - 1; i >= 0; i--) {
-            if (selectedIngredients[i] === targetSelectedIngredient) {
-                selectedIngredients.splice(i, 1);
+        selectedIngredients.forEach((ingredient, index) => {
+            if (ingredient === targetSelectedIngredient) {
+                selectedIngredients.splice(index, 1);
                 context.setSelectedIngredients(selectedIngredients, "replace");
             }
-        }
+        });
     },
 
     //selected appliances tags interface
@@ -181,12 +181,12 @@ const context = {
     },
     deleteSelectedAppliances: (targetSelectedAppliance) => {
         const selectedAppliances = context.getSelectedAppliances();
-        for (let i = selectedAppliances.length - 1; i >= 0; i--) {
-            if (selectedAppliances[i] === targetSelectedAppliance) {
-                selectedAppliances.splice(i, 1);
+        selectedAppliances.forEach((appliance, index) => {
+            if (appliance === targetSelectedAppliance) {
+                selectedAppliances.splice(index, 1);
                 context.setSelectedAppliances(selectedAppliances, "replace");
             }
-        }
+        });
     },
 
     //selected ustensils tags interface
@@ -206,11 +206,11 @@ const context = {
     },
     deleteSelectedUstensils: (targetSelectedUstensil) => {
         const selectedUstensils = context.getSelectedUstensils();
-        for (let i = selectedUstensils.length - 1; i >= 0; i--) {
-            if (selectedUstensils[i] === targetSelectedUstensil) {
-                selectedUstensils.splice(i, 1);
+        selectedUstensils.forEach((ustensil, index) => {
+            if (ustensil === targetSelectedUstensil) {
+                selectedUstensils.splice(index, 1);
                 context.setSelectedUstensils(selectedUstensils, "replace");
             }
-        }
+        });
     },
 };

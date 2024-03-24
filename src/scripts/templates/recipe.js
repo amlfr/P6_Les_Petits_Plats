@@ -61,7 +61,7 @@ const recipeTemplate = () => {
         ingredientsContainer.classList.add("recipe-ingredients-container");
         ingredientsWrapper.appendChild(ingredientsContainer);
 
-        for (const ingredient of recipeData.ingredients) {
+        recipeData.ingredients.forEach((ingredient) => {
             const ingredientItem = document.createElement("div");
             ingredientItem.classList.add("recipe-ingredient-item");
 
@@ -79,7 +79,7 @@ const recipeTemplate = () => {
             ingredientItem.appendChild(ingredientMeasurement);
 
             ingredientsContainer.appendChild(ingredientItem);
-        }
+        });
         return cardWrapper;
     };
 

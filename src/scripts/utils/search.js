@@ -8,29 +8,26 @@ const searchInput = (input, data) => {
         return { filteredData };
     }
 
-    for (let i = 0; i < data.length; i++) {
-        const recipe = data[i];
-
+    data.forEach((item, index) => {
         const nameFound = regex.test(recipe.name.toLowerCase());
         const descriptionFound = regex.test(recipe.description.toLowerCase());
 
         if (nameFound || descriptionFound) {
             filteredData.push(recipe);
-            continue;
+            return;
         }
 
-        for (let j = 0; j < recipe.ingredients.length; j++) {
-            const ingredient = recipe.ingredients[j];
+        recipe.ingredients.forEach((ingredient) => {
             const ingredientFound = regex.test(
                 ingredient.ingredient.toLowerCase()
             );
 
             if (ingredientFound) {
                 filteredData.push(recipe);
-                break;
+                return;
             }
-        }
-    }
+        });
+    });
 
     return { filteredData };
 };
@@ -44,11 +41,11 @@ const tagSearchInput = (
     const regex = new RegExp(input, "i");
     let filteredData = [];
 
-    for (const item of data) {
+    data.forEach((recipe) => {
         if (regex.test(item)) {
             filteredData.push(item);
         }
-    }
+    });
 
     return { filteredData };
 };
@@ -62,38 +59,24 @@ const ingredientSearchFn = (inputs, data) => {
         return ingredientFilteredData;
     }
 
-    //old logic
-    /* for (const input of inputs) {
-        const regex = new RegExp(input, "i");
-        for (const recipe of data) {
-            for (const ingredient of recipe.ingredients) {
-                if (regex.test(ingredient.ingredient)) {
-                    ingredientFilteredData.add(recipe);
-                }
-            }
-        }
-    } */
-
-    //new logic
-
     const targets = [];
-    for (const input of inputs) {
+    inputs.forEach((input) => {
         const regex = new RegExp(`^${input}$`);
         targets.push(regex);
-    }
-    for (const recipe of data) {
+    });
+    data.forEach((recipe) => {
         const matches = [];
-        for (const target of targets) {
-            for (const ingredient of recipe.ingredients) {
+        targets.forEach((target) => {
+            recipe.ingredients.forEach((ingredient) => {
                 if (target.test(ingredient.ingredient)) {
                     matches.push(recipe);
                 }
-            }
-        }
+            });
+        });
         if (matches.length === targets.length) {
             ingredientFilteredData.add(recipe);
         }
-    }
+    });
 
     return ingredientFilteredData;
 };
@@ -107,15 +90,15 @@ const applianceSearchFn = (inputs, data) => {
         return applianceFilteredData;
     }
 
-    for (const input of inputs) {
+    inputs.forEach((input) => {
         const regex = new RegExp(input, "i");
 
-        for (const recipe of data) {
+        data.forEach((recipe) => {
             if (regex.test(recipe.appliance)) {
                 applianceFilteredData.add(recipe);
             }
-        }
-    }
+        });
+    });
 
     return applianceFilteredData;
 };
@@ -129,37 +112,26 @@ const ustensilSearchFn = (inputs, data) => {
         return ustensilFilteredData;
     }
 
-    /*  for (const input of inputs) {
-        const regex = new RegExp(input, "i");
-
-        for (const recipe of data) {
-            for (const ustensil of recipe.ustensils) {
-                if (regex.test(ustensil)) {
-                    ustensilFilteredData.add(recipe);
-                }
-            }
-        }
-    } */
-
     const targets = [];
-    for (const input of inputs) {
+    inputs.forEach((input) => {
         const regex = new RegExp(`^${input}$`);
         targets.push(regex);
-    }
-    console.log("list of targets", targets);
-    for (const recipe of data) {
+    });
+    data.forEach((recipe) => {
         const matches = [];
-        for (const target of targets) {
-            for (const ustensil of recipe.ustensils) {
+
+        targets.forEach((target) => {
+            recipe.ustensils.forEach((ustensil) => {
                 if (target.test(ustensil)) {
                     matches.push(recipe);
                 }
-            }
-        }
+            });
+        });
+
         if (matches.length === targets.length) {
             ustensilFilteredData.add(recipe);
         }
-    }
+    });
 
     return ustensilFilteredData;
 };
@@ -171,10 +143,10 @@ const refreshCards = (cardData) => {
 
     const recipeModel = recipeTemplate();
 
-    for (const recipe of cardData) {
+    cardData.forEach((recipe) => {
         const recipeCard = recipeModel.getRecipeCard(recipe);
         recipeCardsContainer.appendChild(recipeCard);
-    }
+    });
 };
 
 //Refreshes a specific dropdown with the given data
@@ -183,11 +155,10 @@ const refreshDropdown = (field, dropdownData) => {
     dropdownList.innerHTML = "";
     const tagModel = tagTemplate();
 
-    for (item of dropdownData) {
+    dropdownData.forEach((item) => {
         const ListItem = tagModel.getTagListItem(item, field);
-
         dropdownList.appendChild(ListItem);
-    }
+    });
 };
 
 //Gets all the unique values for a given data and field in the data (ingredients, appliances, ustensils)
@@ -196,23 +167,23 @@ const getUniqueEntries = (recipeData, field) => {
 
     switch (field) {
         case "ingredients.ingredient":
-            for (const recipe of recipeData) {
-                for (const ingredient of recipe.ingredients) {
+            recipeData.forEach((recipe) => {
+                recipe.ingredients.forEach((ingredient) => {
                     uniqueValues.add(ingredient.ingredient);
-                }
-            }
+                });
+            });
             break;
         case "ustensils":
-            for (const recipe of recipeData) {
-                for (const ustensil of recipe.ustensils) {
+            recipeData.forEach((recipe) => {
+                recipe.ustensils.forEach((ustensil) => {
                     uniqueValues.add(ustensil);
-                }
-            }
+                });
+            });
             break;
         default:
-            for (const recipe of recipeData) {
+            recipeData.forEach((recipe) => {
                 uniqueValues.add(recipe[field]);
-            }
+            });
     }
 
     return Array.from(uniqueValues);
@@ -228,12 +199,11 @@ const handleTagSelection = (label, field) => {
         case "ingredient":
             const selectedIngredients = context.getSelectedIngredients();
 
-            for (const ingredient of selectedIngredients) {
+            selectedIngredients.forEach((ingredient) => {
                 if (ingredient === label) {
                     found = true;
-                    break;
                 }
-            }
+            });
 
             if (!found) {
                 context.setSelectedIngredients(label);
@@ -243,12 +213,11 @@ const handleTagSelection = (label, field) => {
         case "appliances":
             const selectedAppliances = context.getSelectedAppliances();
 
-            for (const appliance of selectedAppliances) {
+            selectedAppliances.forEach((appliance) => {
                 if (appliance === label) {
                     found = true;
-                    break;
                 }
-            }
+            });
 
             if (!found) {
                 context.setSelectedAppliances(label);
@@ -258,12 +227,11 @@ const handleTagSelection = (label, field) => {
         case "ustensils":
             const selectedUstensils = context.getSelectedUstensils();
 
-            for (const ustensil of selectedUstensils) {
+            selectedUstensils.forEach((ustensil) => {
                 if (ustensil === label) {
                     found = true;
-                    break;
                 }
-            }
+            });
 
             if (!found) {
                 context.setSelectedUstensils(label);
@@ -273,6 +241,7 @@ const handleTagSelection = (label, field) => {
         default:
             break;
     }
+
     if (!found) {
         const newTag = tagModel.getTagLabel(label, field);
         const tagContainer = document.querySelector(".label-tag-container");
