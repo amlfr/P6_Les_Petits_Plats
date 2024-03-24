@@ -1,15 +1,12 @@
-//
-
+//Fucntion used to clear the main search input
 const clearMainInput = () => {
     const mainInput = document.querySelector(".global-search-input");
     mainInput.value = "";
 
     context.setSearchInput("");
-    //todo add to context for livesearch
 };
 
-//
-
+//Fucntion used to clear the ingredient search input
 const clearIngredientInput = () => {
     const ingredientInput = document.querySelector(".ingredient-input");
     ingredientInput.value = "";
@@ -17,8 +14,7 @@ const clearIngredientInput = () => {
     context.setIngredientSearchInput("");
 };
 
-//
-
+//Fucntion used to clear the appliances search input
 const clearApplianceInput = () => {
     const applianceInput = document.querySelector(".appliances-input");
     applianceInput.value = "";
@@ -26,8 +22,7 @@ const clearApplianceInput = () => {
     context.setApplianceSearchInput("");
 };
 
-//
-
+//Fucntion used to clear the ustensils search input
 const clearUstensilInput = () => {
     const ustensilInput = document.querySelector(".ustensils-input");
     ustensilInput.value = "";

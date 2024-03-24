@@ -62,7 +62,8 @@ const ingredientSearchFn = (inputs, data) => {
         return ingredientFilteredData;
     }
 
-    for (const input of inputs) {
+    //old logic
+    /* for (const input of inputs) {
         const regex = new RegExp(input, "i");
         for (const recipe of data) {
             for (const ingredient of recipe.ingredients) {
@@ -70,6 +71,27 @@ const ingredientSearchFn = (inputs, data) => {
                     ingredientFilteredData.add(recipe);
                 }
             }
+        }
+    } */
+
+    //new logic
+
+    const targets = [];
+    for (const input of inputs) {
+        const regex = new RegExp(`^${input}$`);
+        targets.push(regex);
+    }
+    for (const recipe of data) {
+        const matches = [];
+        for (const target of targets) {
+            for (const ingredient of recipe.ingredients) {
+                if (target.test(ingredient.ingredient)) {
+                    matches.push(recipe);
+                }
+            }
+        }
+        if (matches.length === targets.length) {
+            ingredientFilteredData.add(recipe);
         }
     }
 
@@ -107,7 +129,7 @@ const ustensilSearchFn = (inputs, data) => {
         return ustensilFilteredData;
     }
 
-    for (const input of inputs) {
+    /*  for (const input of inputs) {
         const regex = new RegExp(input, "i");
 
         for (const recipe of data) {
@@ -116,6 +138,26 @@ const ustensilSearchFn = (inputs, data) => {
                     ustensilFilteredData.add(recipe);
                 }
             }
+        }
+    } */
+
+    const targets = [];
+    for (const input of inputs) {
+        const regex = new RegExp(`^${input}$`);
+        targets.push(regex);
+    }
+    console.log("list of targets", targets);
+    for (const recipe of data) {
+        const matches = [];
+        for (const target of targets) {
+            for (const ustensil of recipe.ustensils) {
+                if (target.test(ustensil)) {
+                    matches.push(recipe);
+                }
+            }
+        }
+        if (matches.length === targets.length) {
+            ustensilFilteredData.add(recipe);
         }
     }
 
@@ -263,10 +305,6 @@ const globalSearch = (
         context.getSelectedUstensils(),
         appliancesFilteredData
     );
-
-    console.log(context.getSelectedIngredients(), "select ingredients");
-    console.log(context.getSelectedAppliances(), "select appliances");
-    console.log(context.getSelectedUstensils(), "select ustensils");
 
     refreshCards(ustensilsFilteredData);
 

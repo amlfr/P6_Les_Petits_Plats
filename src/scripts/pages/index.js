@@ -18,17 +18,6 @@ const init = async () => {
     //Loads data into context
     context.setRecipeData(recipes);
 
-    //Creates the cards and appends them on the page
-    /* const recipeCardsContainer = document.querySelector(".card-container");
-    for (const recipe of recipes) {
-        const recipeCard = recipeModel.getRecipeCard(recipe);
-        recipeCardsContainer.appendChild(recipeCard);
-    } */
-
-    //Sets up the created cards in the context
-    //const allCards = document.querySelectorAll(".recipe-card");
-    //context.setCards(allCards);
-
     //Links context input string to the user input and creates listener that starts acting after 3 letters for search
     const mainSearchInput = document.querySelector(".search-input");
     mainSearchInput.addEventListener("input", function (event) {
@@ -45,13 +34,16 @@ const init = async () => {
 
     //Sets up listener for ingredient search, acts after 3 letters and resets itself
     const ingredientSearchInput = document.querySelector(".ingredient-input");
+    const ingredientDeleteButton = document.querySelector(
+        ".ingredient-delete-button"
+    );
+    //todo youre here
     ingredientSearchInput.addEventListener("input", function (event) {
         const inputValue = event.target.value;
-        //TODO ADD inputs and delete buttons on each search
-        //const deleteSearch = document.querySelector(".delete-input");
         if (inputValue.length >= 3) {
             //deleteSearch.style.display = "block";
             context.setIngredientSearchInput(inputValue);
+            ingredientDeleteButton.style.display = "flex";
         } else {
             //deleteSearch.style.display = "none";
             context.setIngredientSearchInput("");
@@ -60,13 +52,15 @@ const init = async () => {
 
     //
     const applianceSearchInput = document.querySelector(".appliances-input");
+    const appliancesDeleteButton = document.querySelector(
+        ".appliances-delete-button"
+    );
     applianceSearchInput.addEventListener("input", function (event) {
         const inputValue = event.target.value;
-        //TODO ADD inputs and delete buttons on each search
-        //const deleteSearch = document.querySelector(".delete-input");
         if (inputValue.length >= 3) {
             //deleteSearch.style.display = "block";
             context.setApplianceSearchInput(inputValue);
+            appliancesDeleteButton.style.display = "flex";
         } else {
             //deleteSearch.style.display = "none";
             context.setApplianceSearchInput("");
@@ -75,13 +69,15 @@ const init = async () => {
 
     //
     const ustensilsSearchInput = document.querySelector(".ustensils-input");
+    const ustensilsDeleteButton = document.querySelector(
+        ".ustensils-delete-button"
+    );
     ustensilsSearchInput.addEventListener("input", function (event) {
         const inputValue = event.target.value;
-        //TODO ADD inputs and delete buttons on each search
-        //const deleteSearch = document.querySelector(".delete-input");
         if (inputValue.length >= 3) {
             //deleteSearch.style.display = "block";
             context.setUstensilsSearchInput(inputValue);
+            ustensilsDeleteButton.style.display = "flex";
         } else {
             //deleteSearch.style.display = "none";
             context.setUstensilsSearchInput("");

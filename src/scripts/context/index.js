@@ -34,6 +34,13 @@ const context = {
     setCurrentData: (newCurrentData) => {
         context.state.currentData = newCurrentData;
 
+        const currentMessages = document.querySelectorAll(
+            ".search-fail-message"
+        );
+        for (const failMessage of currentMessages) {
+            failMessage.remove();
+        }
+
         context.setIngredientsData(
             getUniqueEntries(newCurrentData, "ingredients.ingredient")
         );
@@ -44,6 +51,18 @@ const context = {
         refreshCards(newCurrentData);
         const newAllCards = document.querySelectorAll(".recipe-card");
         context.setCards(newAllCards);
+        if (newAllCards.length === 0) {
+            const currentSearch = context.getSearchInput();
+
+            const failSearchMessage = `Aucune recette ne contient ${currentSearch}, vous pouvez chercher «tarte aux pommes », « poisson », etc.`;
+            const cardSection = document.querySelector(".card-section");
+
+            const messageElement = document.createElement("div");
+            messageElement.classList.add("search-fail-message");
+            messageElement.textContent = failSearchMessage;
+
+            cardSection.appendChild(messageElement);
+        }
     },
 
     // Ingredients data interface

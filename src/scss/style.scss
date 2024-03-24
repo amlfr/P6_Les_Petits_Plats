@@ -80,10 +80,12 @@ main {
 
         .button-container {
             display: flex;
-            gap: 50px;
+            justify-content: space-between;
+            align-items: center;
+            width: 150px;
             position: relative;
             bottom: 6vh;
-            left: 28vw;
+            right: -28vw;
 
             .delete-button {
                 width: 50px;
@@ -91,6 +93,8 @@ main {
                 display: none;
                 background-color: transparent;
                 border: none;
+                margin-right: 50px;
+
                 .delete-icon {
                     width: 50px;
                 }
@@ -104,6 +108,8 @@ main {
                 border-radius: 10px;
                 cursor: pointer;
                 color: white !important;
+                margin-left: auto;
+                flex-grow: 0;
 
                 & .search-icon {
                     color: white !important;
@@ -153,7 +159,6 @@ main {
 
                 .dropdown-content {
                     display: none;
-
                     font-family: "Manrope", sans-serif;
                     background-color: white;
                     border-radius: 0px 0px 10px 10px;
@@ -161,20 +166,69 @@ main {
 
                     .input-wrapper {
                         display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        padding-bottom: 15px;
 
                         .dropdown-input {
                             height: 3.5vh;
                             width: 90%;
-                            margin-left: auto;
+                            margin: 0 auto;
                             display: inline-block;
+                            border: solid 2px $grey;
+                            border-radius: 2px;
 
                             &:focus-visible {
                                 outline: none;
                             }
                         }
 
-                        .search-button {
-                            height: 3.5vh;
+                        .button-wrapper {
+                            width: 50px;
+                            display: flex;
+                            justify-content: flex-end;
+                            position: absolute;
+                            bottom: 24.5vh;
+
+                            .delete-button {
+                                height: 3.3vh;
+                                background-color: transparent;
+                                color: $grey;
+                                border: none;
+                                display: none;
+                                justify-content: center;
+                                align-items: center;
+                                cursor: pointer;
+
+                                img {
+                                    height: 7px;
+                                }
+                            }
+
+                            .search-button {
+                                height: 3.5vh;
+                                background-color: transparent;
+                                color: $grey;
+                                border: none;
+                                cursor: pointer;
+
+                                img {
+                                    height: 15px;
+                                }
+                            }
+                        }
+
+                        .ingredient-button-wrapper {
+                            left: 16vw;
+                        }
+
+                        .ustensils-button-wrapper {
+                            left: 43vw;
+                        }
+
+                        .appliances-button-wrapper {
+                            left: 29.5vw;
                         }
                     }
 
@@ -206,6 +260,10 @@ main {
                 &:hover {
                     .dropdown-header {
                         border-radius: 10px 10px 0px 0px;
+                    }
+
+                    .ingredient-header {
+                        min-width: 250px;
                     }
 
                     & .dropdown-content {
@@ -247,6 +305,15 @@ main {
 
 .card-section {
     padding: 2vh 7vw 5vh;
+    min-height: 50vh;
+
+    .search-fail-message {
+        text-align: center;
+        height: 100%;
+        font-size: 36px;
+        width: 70vw;
+        margin: 20vh auto 30vh auto;
+    }
 
     .card-container {
         display: grid;

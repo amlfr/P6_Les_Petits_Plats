@@ -68,10 +68,12 @@ main {
 }
 .search-section .search-container .button-container {
   display: flex;
-  gap: 50px;
+  justify-content: space-between;
+  align-items: center;
+  width: 150px;
   position: relative;
   bottom: 6vh;
-  left: 28vw;
+  right: -28vw;
 }
 .search-section .search-container .button-container .delete-button {
   width: 50px;
@@ -79,6 +81,7 @@ main {
   display: none;
   background-color: transparent;
   border: none;
+  margin-right: 50px;
 }
 .search-section .search-container .button-container .delete-button .delete-icon {
   width: 50px;
@@ -91,6 +94,8 @@ main {
   border-radius: 10px;
   cursor: pointer;
   color: white !important;
+  margin-left: auto;
+  flex-grow: 0;
 }
 .search-section .search-container .button-container .search-button .search-icon {
   color: white !important;
@@ -138,18 +143,60 @@ main {
 }
 .label-search-section .label-search-container .dropdown-container .dropdown-wrapper .dropdown-content .input-wrapper {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 15px;
 }
 .label-search-section .label-search-container .dropdown-container .dropdown-wrapper .dropdown-content .input-wrapper .dropdown-input {
   height: 3.5vh;
   width: 90%;
-  margin-left: auto;
+  margin: 0 auto;
   display: inline-block;
+  border: solid 2px #7a7a7a;
+  border-radius: 2px;
 }
 .label-search-section .label-search-container .dropdown-container .dropdown-wrapper .dropdown-content .input-wrapper .dropdown-input:focus-visible {
   outline: none;
 }
-.label-search-section .label-search-container .dropdown-container .dropdown-wrapper .dropdown-content .input-wrapper .search-button {
+.label-search-section .label-search-container .dropdown-container .dropdown-wrapper .dropdown-content .input-wrapper .button-wrapper {
+  width: 50px;
+  display: flex;
+  justify-content: flex-end;
+  position: absolute;
+  bottom: 24.5vh;
+}
+.label-search-section .label-search-container .dropdown-container .dropdown-wrapper .dropdown-content .input-wrapper .button-wrapper .delete-button {
+  height: 3.3vh;
+  background-color: transparent;
+  color: #7a7a7a;
+  border: none;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.label-search-section .label-search-container .dropdown-container .dropdown-wrapper .dropdown-content .input-wrapper .button-wrapper .delete-button img {
+  height: 7px;
+}
+.label-search-section .label-search-container .dropdown-container .dropdown-wrapper .dropdown-content .input-wrapper .button-wrapper .search-button {
   height: 3.5vh;
+  background-color: transparent;
+  color: #7a7a7a;
+  border: none;
+  cursor: pointer;
+}
+.label-search-section .label-search-container .dropdown-container .dropdown-wrapper .dropdown-content .input-wrapper .button-wrapper .search-button img {
+  height: 15px;
+}
+.label-search-section .label-search-container .dropdown-container .dropdown-wrapper .dropdown-content .input-wrapper .ingredient-button-wrapper {
+  left: 16vw;
+}
+.label-search-section .label-search-container .dropdown-container .dropdown-wrapper .dropdown-content .input-wrapper .ustensils-button-wrapper {
+  left: 43vw;
+}
+.label-search-section .label-search-container .dropdown-container .dropdown-wrapper .dropdown-content .input-wrapper .appliances-button-wrapper {
+  left: 29.5vw;
 }
 .label-search-section .label-search-container .dropdown-container .dropdown-wrapper .dropdown-content .dropdown-list {
   list-style: none;
@@ -173,6 +220,9 @@ main {
 }
 .label-search-section .label-search-container .dropdown-container .dropdown-wrapper:hover .dropdown-header {
   border-radius: 10px 10px 0px 0px;
+}
+.label-search-section .label-search-container .dropdown-container .dropdown-wrapper:hover .ingredient-header {
+  min-width: 250px;
 }
 .label-search-section .label-search-container .dropdown-container .dropdown-wrapper:hover .dropdown-content {
   display: block;
@@ -202,6 +252,14 @@ main {
 
 .card-section {
   padding: 2vh 7vw 5vh;
+  min-height: 50vh;
+}
+.card-section .search-fail-message {
+  text-align: center;
+  height: 100%;
+  font-size: 36px;
+  width: 70vw;
+  margin: 20vh auto 30vh auto;
 }
 .card-section .card-container {
   display: grid;
